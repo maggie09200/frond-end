@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蔬菜小幫手 - 智慧蔬菜服務平台</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo-mobile">
+            <i class="fas fa-leaf"></i>
+            <span>蔬菜小幫手</span>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-seedling"></i>
+            <h2>蔬菜小幫手</h2>
+        </div>
+        <nav class="nav-menu">
+            <a href="#overview" class="nav-item active" data-section="overview">
+                <i class="fas fa-leaf"></i>
+                <span>蔬菜總覽</span>
+            </a>
+            <a href="#recipe" class="nav-item" data-section="recipe">
+                <i class="fas fa-utensils"></i>
+                <span>食譜推薦</span>
+            </a>
+            <a href="#nutrition" class="nav-item" data-section="nutrition">
+                <i class="fas fa-apple-alt"></i>
+                <span>營養價值查詢</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- 蔬菜總覽頁 -->
+        <section id="overview" class="content-section active">
+            <div class="section-header">
+                <h1><i class="fas fa-leaf"></i> 蔬菜總覽</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="搜尋蔬菜..." id="vegetableSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="vegetable-grid" id="vegetableGrid">
+                <!-- 蔬菜卡片將由 JavaScript 動態生成 -->
+            </div>
+        </section>
+
+        <!-- 食譜推薦頁 -->
+        <section id="recipe" class="content-section">
+            <div class="section-header">
+                <h1><i class="fas fa-utensils"></i> 食譜推薦</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="輸入食材，如：空心菜、蒜頭..." id="recipeSearch">
+                    <button class="search-btn">搜尋食譜</button>
+                </div>
+            </div>
+            <div class="recipe-grid" id="recipeGrid">
+                <!-- 食譜卡片將由 JavaScript 動態生成 -->
+            </div>
+        </section>
+
+        <!-- 營養價值查詢頁 -->
+        <section id="nutrition" class="content-section">
+            <div class="section-header">
+                <h1><i class="fas fa-apple-alt"></i> 營養價值查詢</h1>
+                <div class="nutrition-search">
+                    <input type="text" placeholder="搜尋蔬菜或營養成分..." id="nutritionSearch">
+                    <button class="search-btn">查詢</button>
+                </div>
+            </div>
+            <div class="nutrition-results" id="nutritionResults">
+                <!-- 營養查詢結果將由 JavaScript 動態生成 -->
+            </div>
+        </section>
+    </main>
+
+    <!-- 聊天視窗 -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header" id="chatHeader">
+            <i class="fas fa-comments"></i>
+            <span>AI 小助手</span>
+            <button class="chat-toggle" id="chatToggle">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <i class="fas fa-robot"></i>
+                    <span>您好！我是蔬菜小助手，有什麼蔬菜相關問題都可以問我喔！</span>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="輸入您的問題..." id="chatInput">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 蔬菜詳細資訊 Modal -->
+    <div class="modal" id="vegetableModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- 詳細內容將由 JavaScript 動態生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
