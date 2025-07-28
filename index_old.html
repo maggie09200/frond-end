@@ -5,17 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>蔬菜小幫手 - 智慧蔬菜服務平台</title>
-    <!-- 外部字體與圖示 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-    <!-- 您自己的樣式表 -->
     <link rel="stylesheet" href="styles.css">
-
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -25,7 +18,7 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="logo-mobile">
-            <img src="logo.png" alt="蔬菜小幫手" style="width: 40px; height: auto;">
+            <img src="logo.jpg" alt="蔬菜小幫手" style="width: 40px; height: auto;">
             <span>蔬菜小幫手</span>
         </div>
     </header>
@@ -87,7 +80,6 @@
                 <h1><i class="fa-solid fa-dollar-sign"></i> 價格預測</h1>
                 <div class="search-bar">
                     <input type="text" placeholder="搜尋蔬菜..." id="priceSearch">
-                    <i class="fas fa-search"></i>
                 </div>
             </div>
             <div class="price-results" id="priceResults">
@@ -119,9 +111,17 @@
         </div>
     </div>
 
-    <!-- Chart.js 函式庫 -->
+    <!-- 蔬菜詳細資訊 Modal -->
+    <div class="modal" id="vegetableModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- 詳細內容將由 JavaScript 動態生成 -->
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- 您自己的 JavaScript 檔案 -->
     <script src="script.js"></script>
 </body>
 
