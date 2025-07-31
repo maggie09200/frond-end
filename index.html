@@ -109,11 +109,21 @@
             <div class="chat-messages" id="chatMessages">
                 <div class="message bot-message">
                     <i class="fas fa-robot"></i>
-                    <span>您好！我是蔬菜小助手，有什麼蔬菜相關問題都可以問我喔！</span>
+                    <span>
+                        您好！我是蔬菜小助手，有什麼蔬菜相關問題都可以問我喔！<br>
+                        1.可以輸入您想查詢的營養成分，例如：蛋白質、維生素C、鐵質<br>
+                        2.可以輸入蔬菜名稱或別名，例如：高麗菜、大白菜<br>
+                        3.可以點按相機圖示上傳蔬菜照片，讓我幫你判斷那是甚麼菜!!
+                    </span>
+
                 </div>
             </div>
             <div class="chat-input">
                 <input type="text" placeholder="輸入您的問題..." id="chatInput">
+                <!-- 新增的上傳按鈕 -->
+                <button id="uploadBtn"><i class="fas fa-camera"></i></button>
+                <!-- 隱藏的檔案選擇器 -->
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
                 <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>

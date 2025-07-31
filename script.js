@@ -453,6 +453,9 @@ function setupEventListeners() {
     });
     sendMessage.addEventListener('click', sendChatMessage);
     chatInput.addEventListener('keypress', e => e.key === 'Enter' && sendChatMessage());
+    // 新增的事件監聽(上傳圖片)
+    uploadBtn.addEventListener('click', () => imageUpload.click());
+    imageUpload.addEventListener('change', handleImageUpload);
 
     // 搜尋功能
     document.getElementById('vegetableSearch').addEventListener('input', e => {
@@ -476,6 +479,80 @@ function setupEventListeners() {
         });
     });
 }
+
+// 修改後的圖片上傳處理函式
+async function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // 1. 立即在前端顯示圖片預覽
+    const imageUrl = URL.createObjectURL(file);
+    const imageHtml = `<img src="${imageUrl}" alt="上傳的圖片" style="max-width: 200px;">`;
+    addMessage(imageHtml, 'user');
+
+    // 清空 input 的值，以便能重複上傳同一張照片
+    event.target.value = '';
+
+    // 2. 顯示 "分析中" 的訊息，提升使用者體驗
+    addMessage('圖片分析中，請稍候...', 'bot');
+
+    // 3. 將圖片檔案轉換為 Base64 字串
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+        const base64String = reader.result;
+
+        // 4. 使用 fetch API 將 Base64 字串發送到 Flask 後端
+        try {
+            // 確認後端 API 的 URL 和 port 是否正確
+            const response = await fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ image: base64String }),
+            });
+
+            if (!response.ok) {
+                // 如果伺服器回傳錯誤 (例如 400 或 500)
+                throw new Error(`伺服器錯誤: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.vegetable && result.confidence !== undefined) {
+                const veg_name = result.vegetable;
+                // 後端回傳的 confidence 是 0-100
+                const confidence = parseFloat(result.confidence);
+                let reply = '';
+
+                if (confidence === 100) {
+                    reply = `真相只有一個 就是「${veg_name}」!! (信心度: ${confidence.toFixed(2)}%)`;
+                } else if (confidence >= 80) {
+                    reply = `哼哼 根據我的判斷 它就是「${veg_name}」! (信心度: ${confidence.toFixed(2)}%)`;
+                } else if (confidence >= 50) { // 假設原始需求 ">= 0.5" 是指 50%
+                    reply = `可能是「${veg_name}」，也許讓我再看更清楚的一張。 (信心度: ${confidence.toFixed(2)}%)`;
+                } else { // 信心度 < 50%
+                    reply = `歐內該，請提供更清晰的照片。 (信心度: ${confidence.toFixed(2)}%)`;
+                }
+                addMessage(reply, 'bot');
+
+            } else {
+                // 如果後端回傳的 JSON 中有 error 欄位或格式不符
+                throw new Error(result.error || '未知的辨識結果');
+            }
+
+        } catch (error) {
+            console.error('辨識失敗:', error);
+            addMessage('抱歉，圖片辨識失敗，請稍後再試。', 'bot');
+        }
+    };
+    reader.onerror = (error) => {
+        console.error('檔案讀取失敗:', error);
+        addMessage('抱歉，讀取圖片檔案時發生錯誤。', 'bot');
+    };
+}
+
 
 // 聊天功能
 function sendChatMessage() {
