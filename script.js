@@ -184,7 +184,7 @@ function renderLineChart(canvas, labels, data, label, showLegend = true) {
     if (chartInstances[chartId]) chartInstances[chartId].destroy();
     chartInstances[chartId] = new Chart(canvas.getContext('2d'), {
         type: 'line',
-        data: { labels, datasets: [{ label, data, borderColor: 'var(--primary-green)', backgroundColor: 'rgba(128, 201, 106, 0.1)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 2, pointBackgroundColor: 'var(--primary-green)' }] },
+        data: { labels, datasets: [{ label, data, borderColor: '#80c96a', backgroundColor: 'rgba(128, 201, 106, 0.1)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 2, pointBackgroundColor: '#80c96a' }] },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: showLegend } }, scales: { y: { beginAtZero: false, ticks: { font: { size: 10 } } }, x: { ticks: { font: { size: 10 }, maxRotation: 0, minRotation: 0, callback: function (value, index) { if (labels.length > 15 && index % 3 !== 0) return ''; return this.getLabelForValue(value); } } } } }
     });
 }
@@ -195,7 +195,7 @@ function renderRadarChart(canvas, labels, data, label) {
     if (chartInstances[chartId]) chartInstances[chartId].destroy();
     chartInstances[chartId] = new Chart(canvas.getContext('2d'), {
         type: 'radar',
-        data: { labels, datasets: [{ label, data, backgroundColor: 'rgba(128, 201, 106, 0.2)', borderColor: 'var(--primary-green)', pointBackgroundColor: 'var(--primary-green)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'var(--primary-green)' }] },
+        data: { labels, datasets: [{ label, data, backgroundColor: 'rgba(128, 201, 106, 0.2)', borderColor: '#80c96a', pointBackgroundColor: '#80c96a', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: '#48753aff' }] },
         options: { responsive: true, maintainAspectRatio: false, scales: { r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 100, pointLabels: { font: { size: 12 } }, ticks: { display: false } } } }
     });
 }
